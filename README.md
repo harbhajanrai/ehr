@@ -58,6 +58,9 @@
       * ```new_patient = create_new_patient()```
 
 
+* cmd to execute this file :  python data/patient.py
+
+
 # Module 2 : Fetching data from EHR and pushing to UM (mocking), processing to calculate score for eacg record
 * 		calculate_medical_score(health_record):
     * Description: Calculates a medical score based on a patient's health record.
@@ -83,5 +86,5 @@
         * medical_score (int): The medical score of a patient.
     * Returns: A tuple containing a boolean indicating whether coverage is approved and a message explaining the decision.
 
-
+* cmd to execute the file :  python data/ehr_to_um.py
 

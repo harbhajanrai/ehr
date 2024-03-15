@@ -257,6 +257,9 @@ def create_new_patient():
 
 
 patient_details = get_patient(12724067)
+print("Fetched Patient Details ", patient_details)
 search_result = search_patient("sma")
+print("Fetched Patient Details via search", patient_details)
 new_patient = create_new_patient()
+print("New patient added", new_patient)
 
