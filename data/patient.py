@@ -3,6 +3,15 @@ import requests
 
 def get_patient(patient_id):
 
+    """
+    The get_patient function takes in a patient_id and returns the patient's information.
+        Args:
+            patient_id (int): The id of the desired patient
+
+    :param patient_id: Get the patient's information from the database (right now getting mock data)
+    :return: A dictionary with the patient's information
+    :doc-author: Harbhajan rai
+    """
     url = f"http://127.0.0.1:5000/api/patient/{patient_id}"
 
     payload = {}
@@ -16,6 +25,14 @@ def get_patient(patient_id):
 
 
 def search_patient(search_text):
+    """
+    The search_patient function takes in a search_text parameter and
+     - returns the patient records that matches the search text.
+
+    :param search_text: Search for a patient in the database
+    :return: A list of patients that match the search text
+    :doc-author: Trelent
+    """
     url = f"http://127.0.0.1:5000/api/patient?search={search_text}"
 
     payload = {}
@@ -23,14 +40,21 @@ def search_patient(search_text):
 
     response = requests.get(url, headers=headers, data=payload)
     if response.status_code == 200:
-        return response.json()
+        search_response = response.json()
+        return search_response['entry']
     else:
         return "No record found"
 
-def create_new_patient():
-    import requests
-    import json
 
+def create_new_patient():
+    """
+    The create_new_patient function creates a new patient in the FHIR server.
+        The function takes no arguments and returns success code.
+
+
+    :return: Return patient id
+    :doc-author: Harbhajan Rai
+    """
     url = "http://127.0.0.1:5000/api/patient"
 
     payload = {
@@ -229,10 +253,10 @@ def create_new_patient():
 
     response = requests.post(url, headers=headers, data=payload)
 
-    print(response.json())
+    return response.json()
 
-print(get_patient(12724067))
-print(search_patient("sma"))
 
-print(create_new_patient())
+patient_details = get_patient(12724067)
+search_result = search_patient("sma")
+new_patient = create_new_patient()
 
