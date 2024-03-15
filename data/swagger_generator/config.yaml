@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: Patient API
+  version: 1.0.0
+  description: API for managing patient information
+
+servers:
+  - url: http://127.0.0.1:5000/api
+
+paths:
+  /patient/{patient_id}:
+    get:
+      summary: Get patient by ID
+      parameters:
+        - name: patient_id
+          in: path
+          required: true
+          description: ID of the patient to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Patient not found
+
+  /patient:
+    get:
+      summary: Search for patients
+      parameters:
+        - name: search
+          in: query
+          required: false
+          description: Search term
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No records found
+
+    post:
+      summary: Create a new patient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resourceType:
+                  type: string
+                  example: Patient
+                name:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      given:
+                        type: array
+                        items:
+                          type: string
+                        example: ["John"]
+                      family:
+                        type: string
+                        example: "Doe"
+                gender:
+                  type: string
+                  example: "male"
+                birthDate:
+                  type: string
+                  format: date
+                  example: "1990-01-01"
+                telecom:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      system:
+                        type: string
+                        example: "phone"
+                      value:
+                        type: string
+                        example: "1234567890"
+                address:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      use:
+                        type: string
+                        example: "home"
+                      line:
+                        type: array
+                        items:
+                          type: string
+                        example: ["123 Main St"]
+                      city:
+                        type: string
+                        example: "Anytown"
+                      state:
+                        type: string
+                        example: "NY"
+                      postalCode:
+                        type: string
+                        example: "12345"
+      responses:
+        '201':
+          description: Patient created
+        '400':
+          description: Bad request
+
